@@ -77,7 +77,8 @@ export default function Login() {
         document.body.style.background = `url(${bg})`;
         document.body.style.backgroundSize = 'cover';
         sessionStorage.clear();
-    }, [])
+        console.log('chamou')
+    }, []);
 
     const handleEntrar = () => {
 
