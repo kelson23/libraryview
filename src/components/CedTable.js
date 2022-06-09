@@ -25,6 +25,7 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Grid from '@mui/material/Grid';
 import ButtonBase from '@mui/material/ButtonBase';
 import ListItemText from '@mui/material/ListItemText';
+import { Delete, ModeEdit } from '@mui/icons-material';
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -73,17 +74,6 @@ function EnhancedTableHead(props) {
     return (
         <TableHead>
             <TableRow>
-                <TableCell padding="checkbox">
-                    <Checkbox
-                        color="primary"
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{
-                            'aria-label': 'select all desserts',
-                        }}
-                    />
-                </TableCell>
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
@@ -201,85 +191,85 @@ const TooltipBook = (props) => {
             <Grid container spacing={2}>
                 <Grid item>
                     <ButtonBase sx={{ width: 128, height: 128 }}>
-                        <Img alt="complex" src={props.row.bookCover} />
+                        <Img alt="Capa" src={props.row.bookCover.replace('books/','')} />
                     </ButtonBase>
                 </Grid>
                 <Grid item xs={12} sm container>
                     <Grid item xs container spacing={2}>
-                        <Grid item xs={6}>                            
+                        <Grid item xs={6}>
                             <ListItemText
                                 primary="Nome"
                                 secondary={
                                     <React.Fragment>
-                                        <Typography                                                                                        
+                                        <Typography
                                             variant="body2"
                                             color="text.secondary"
                                         >
                                             {props.row.name}
-                                        </Typography>                                        
+                                        </Typography>
                                     </React.Fragment>
                                 }
-                            />                                                        
+                            />
                         </Grid>
-                        <Grid item xs={6}>                            
+                        <Grid item xs={6}>
                             <ListItemText
                                 primary="Categoria"
                                 secondary={
                                     <React.Fragment>
-                                        <Typography                                                                                        
+                                        <Typography
                                             variant="body2"
                                             color="text.secondary"
                                         >
                                             {props.row.category_name}
-                                        </Typography>                                        
+                                        </Typography>
                                     </React.Fragment>
                                 }
-                            />                                                        
+                            />
                         </Grid>
-                        <Grid item xs={6}>                            
+                        <Grid item xs={6}>
                             <ListItemText
                                 primary="Autor"
                                 secondary={
                                     <React.Fragment>
-                                        <Typography                                                                                        
+                                        <Typography
                                             variant="body2"
                                             color="text.secondary"
                                         >
                                             {props.row.author}
-                                        </Typography>                                        
+                                        </Typography>
                                     </React.Fragment>
                                 }
-                            />                                                        
+                            />
                         </Grid>
-                        <Grid item xs={6}>                            
+                        <Grid item xs={6}>
                             <ListItemText
                                 primary="Data de Publicação"
                                 secondary={
                                     <React.Fragment>
-                                        <Typography                                                                                        
+                                        <Typography
                                             variant="body2"
                                             color="text.secondary"
                                         >
                                             {new Date(props.row.publishDate).toLocaleDateString()}
-                                        </Typography>                                        
+                                        </Typography>
                                     </React.Fragment>
                                 }
-                            />                                                        
+                            />
                         </Grid>
-                        <Grid item xs={6}>                            
+                        <Grid item xs={6}>
                             <ListItemText
                                 primary="Quant. Folhas"
                                 secondary={
                                     <React.Fragment>
-                                        <Typography                                                                                        
+                                        <Typography
                                             variant="body2"
                                             color="text.secondary"
                                         >
                                             {props.row.pages}
-                                        </Typography>                                        
+                                        </Typography>
                                     </React.Fragment>
                                 }
-                            />                                                        
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -295,7 +285,7 @@ export default function CedTable(props) {
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
+    const [dense, setDense] = React.useState(true);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleRequestSort = (event, property) => {
@@ -390,27 +380,28 @@ export default function CedTable(props) {
                                         >
                                             <TableRow
                                                 hover
-                                                onClick={(event) => handleClick(event, row.name)}
+                                                //onClick={(event) => handleClick(event, row.name)}
                                                 role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 tabIndex={-1}
                                                 key={row.name}
                                                 selected={isItemSelected}
                                             >
-                                                <TableCell padding="checkbox">
-                                                    <Checkbox
-                                                        color="primary"
-                                                        checked={isItemSelected}
-                                                        inputProps={{
-                                                            'aria-labelledby': labelId,
-                                                        }}
-                                                    />
-                                                </TableCell>
                                                 {
                                                     columns.map((col) => (
                                                         <TableCell align="left">{Object.values(row)[col]}</TableCell>
                                                     ))
                                                 }
+                                                <TableCell align="left">
+                                                    <IconButton color="primary" component="span">
+                                                        <ModeEdit color='info' />
+                                                    </IconButton>
+                                                </TableCell>
+                                                <TableCell align="left">
+                                                    <IconButton onClick={()=>props.onDelete(row.idBook)} color="primary" component="span">
+                                                        <Delete color='error' />
+                                                    </IconButton>
+                                                </TableCell>
                                             </TableRow>
                                         </HtmlTooltip>
                                     );
@@ -437,10 +428,10 @@ export default function CedTable(props) {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
-            <FormControlLabel
+            {/* <FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"
-            />
+            /> */}
         </Box>
     );
 }
