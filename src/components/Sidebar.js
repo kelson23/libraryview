@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { Apps } from '@mui/icons-material';
+import { MenuBook } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -132,7 +132,7 @@ export default function MiniDrawer(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Sistemas'].map((text, index) => (
+          {['Livros'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -148,7 +148,7 @@ export default function MiniDrawer(props) {
                     justifyContent: 'center',
                   }}
                 >
-                  <Apps />
+                  <MenuBook />
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>

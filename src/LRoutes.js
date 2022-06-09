@@ -33,7 +33,7 @@ const UniRoutes = () => (
     </BrowserRouter>
     <BrowserRouter basename="/library/page">
       <Sidebar>
-        <Routes>          
+        <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
